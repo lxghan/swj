@@ -1,43 +1,104 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandler } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
-let searchInp = null;
-let globalnum = 0;
+let searchInp = "";
+let searchInp2 = "";
+let url = "https://appmockapi.herokuapp.com/author/search";
 
 const SWJ = ({navigation}) => {
-  const [txt, onChangeTxt] = React.useState();
+  const [fname, onChangeFname] = React.useState();
+  const [lname, onChangeLname] = React.useState();
+  const [pname, onChangePname] = React.useState();
+  const [lp, onChangeLp] = React.useState();
+
+  searchInp = "";
+
   return (
     <View style={styles.container}>
-    <Text style={styles.header}>Society of Women Journalists</Text>
-    <Text>{"\n\n"}</Text>
-    <View style={{borderBottomWidth: 1,}}>
-    <TextInput
-    onChangeText={onChangeTxt}
-    value={txt}
-    placeholder="Search..."/>
-    </View>
-    <Text>{"\n"}</Text>
-    <Button title="Search"
-    onPress={() => {
-      txt != null ? navigation.navigate('Search Results') : alert("No search input");
-      searchInp = txt;
-    }}></Button>
-    <StatusBar style="auto" />
+      <Text style={styles.header}>Society of Women Journalists</Text>
+      <Text>{"\n\n"}</Text>
+
+        <TextInput style={styles.input}
+        onChangeText={onChangeFname}
+        value={fname}
+        placeholder="First name..."/>
+
+        <TextInput style={styles.input}
+        onChangeText={onChangeLname}
+        value={lname}
+        placeholder="Last name..."/>
+
+        <TextInput style={styles.input}
+        onChangeText={onChangePname}
+        value={pname}
+        placeholder="Pen name..."/>
+
+        <TextInput style={styles.input}
+        onChangeText={onChangeLp}
+        value={lp}
+        placeholder="Leadership position..."/>
+
+      <Text>{"\n\n"}</Text>
+      <Button title="Search"
+        onPress={() => {
+        input1(fname, lname, pname, lp);
+        navigation.navigate('Search Results');
+      }}/>
+
+      <StatusBar style="auto" />
     </View>
   )
 }
 
+const input1 = (fname, lname, pname, lp) => {
+  if (fname != undefined){
+    searchInp += "?first_name=" + fname;
+  }
+}
+/*
+    input2(fname, lname, pname, lp);
+  }
+  else if (lname != undefined){
+    searchInp += "?Surname=" + lname;
+    input2(fname, lname, pname, lp);
+  }
+  else if (pname != undefined){
+    searchInp += "?pen name=" + pname;
+    input2(fname, lname, pname, lp);
+  }
+  else if (lp != undefined){
+    searchInp += "?leadership position=" + lp;
+    input2(fname, lname, pname, lp);
+  }
+
+}
+
+const input2 = (fname, lname, pname, lp) => {
+  if (lname != undefined){
+    searchInp += "&Surname=" + lname;
+  }
+  if (pname != undefined){
+    searchInp += "&pen name=" + pname;
+  }
+  if (lp != undefined){
+    searchInp += "&leadership position="  + lp;
+  }
+}
+*/
 const SearchRes = ({navigation}) => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
+  searchInp2 = "";
+
   React.useEffect(() => {
-    fetch("https://appmockapi.herokuapp.com/author/search")
+    fetch(url + searchInp, {
+      method: "GET"})
       .then(res => res.json())
       .then(
         (result) => {
@@ -56,34 +117,30 @@ const SearchRes = ({navigation}) => {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-        return items.map((element, i) => {
-            switch(searchInp.toLowerCase()){
-            case element.first_name.toLowerCase(): return (
-                <Text onPress={() => {globalnum = i; navigation.navigate('Biography')}} style={styles.header}>{element.first_name + " " + element.last_name}</Text>
-            )
-            case element.last_name.toLowerCase(): return (
-                <Text onPress={() => {globalnum = i; navigation.navigate('Biography')}} style={styles.header}>{element.first_name + " " + element.last_name}</Text>
-            )
-            case (element.first_name.toLowerCase() + " " + element.last_name.toLowerCase()): return (
-                <Text onPress={() => {globalnum = i; navigation.navigate('Biography')}} style={styles.header}>{element.first_name + " " + element.last_name}</Text>
-            )
-            case element.pen_name.toLowerCase(): return (
-                <Text onPress={() => {globalnum = i; navigation.navigate('Biography')}} style={styles.header}>{element.first_name + " " + element.last_name}</Text>
-            )
-            case element.leadership_position.toLowerCase(): return (
-                <Text onPress={() => {globalnum = i; navigation.navigate('Biography')}} style={styles.header}>{element.first_name + " " + element.last_name}</Text>
-            )
-          }
-        });
+      return items.map(element => {
+        return (
+          <View>
+            <Text onPress={() => {
+              searchInp2 = "?first_name=" + element.first_name + "&Surname=" + element.Surname;
+              navigation.navigate('Biography')}}
+              style={styles.header}>
+              {element.first_name + " " + element.Surname}
+            </Text>
+          </View>
+        )
+      })
     }
+
 }
 
 const Bio = () => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
+
   React.useEffect(() => {
-    fetch("https://appmockapi.herokuapp.com/author/search")
+    fetch(url + searchInp2, {
+      method: "GET"})
       .then(res => res.json())
       .then(
         (result) => {
@@ -102,20 +159,33 @@ const Bio = () => {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return items.map((element, i) => {
-        switch(globalnum){
-          case i: return (
-              <View>
-                <Text style={styles.header}>{element.prefix + " " + element.first_name + " " + element.last_name}</Text>
-                <Text style={styles.bio}>{"Pen name: " + element.pen_name}</Text>
-                <Text style={styles.bio}>{"Date of Birth: " + element.DOB}</Text>
-                <Text style={styles.bio}>{"Date of Death: " + element.DOD}</Text>
-                <Text style={styles.bio}>{"Leadership Position: " + element.leadership_position}</Text>
-              </View>
-            )
-          }
+      return items.map(element => {
+        return(
+          <View>
+            <Text style={styles.header}>{element['prefix/title'] + " " + element.first_name + " " + element.Surname}</Text>
+            <Text style={styles.bio}>{"Pen name: " + element['pen name']}</Text>
+            <Text style={styles.bio}>{"Date of Birth: " + element.DOB}</Text>
+            <Text style={styles.bio}>{"Date of Death: " + element.DOD}</Text>
+            <Text style={styles.bio}>{"Leadership Position: " + element['leadership position']}</Text>
+            <Text style={styles.bio}>{"Street Address: " + element['street address']}</Text>
+            <Text style={styles.bio}>{"Neighborhood: " + element['neighborhood']}</Text>
+            <Text style={styles.bio}>{"City: " + element['city']}</Text>
+            <Text style={styles.bio}>{"Post Code: " + element['post code']}</Text>
+            <Text style={styles.bio}>{"Proposer: " + element['proposer']}</Text>
+            <Text style={styles.bio}>{"Organization 1: " + element['org1']}</Text>
+            <Text style={styles.bio}>{"Organization 2: " + element['org2']}</Text>
+            <Text style={styles.bio}>{"Organization 3: " + element['org3']}</Text>
+            <Text style={styles.bio}>{"Organization 4: " + element['org4']}</Text>
+            <Text style={styles.bio}>{"Organization 5: " + element['org5']}</Text>
+            <Text style={styles.bio}>{"Periodicals: " + element['periodicals']}</Text>
+            <Text style={styles.bio}>{"Source of Info.: " + element['source of info']}</Text>
+            <Text style={styles.bio}>{"Other: " + element['other']}</Text>
+            <Text style={styles.bio}>{"Joined: " + element['Joined']}</Text>
+          </View>
+        )
       })
     }
+
 }
 
 const App = () => {
@@ -137,15 +207,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {
+    borderWidth: 1,
+    margin: 12,
+    fontSize: 15,
+  },
   header: {
     fontSize: 30,
     fontWeight: "bold",
   },
-  inputText: {
-    fontSize: 15,
-  },
   bio: {
-    fontSize: 25,
+    fontSize: 20,
   },
 });
 
