@@ -117,18 +117,27 @@ const SearchRes = ({navigation}) => {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return items.map(element => {
+      if (Array.isArray(items) && items.length){
+        return items.map(element => {
+            return (
+              <View>
+                <Text onPress={() => {
+                  searchInp2 = "?first_name=" + element.first_name + "&Surname=" + element.Surname;
+                  navigation.navigate('Biography')}}
+                  style={styles.header}>
+                  {element.first_name + " " + element.Surname}
+                </Text>
+              </View>
+            )
+        })
+      }
+      else {
         return (
           <View>
-            <Text onPress={() => {
-              searchInp2 = "?first_name=" + element.first_name + "&Surname=" + element.Surname;
-              navigation.navigate('Biography')}}
-              style={styles.header}>
-              {element.first_name + " " + element.Surname}
-            </Text>
+            <Text style={styles.header}>No result matched</Text>
           </View>
         )
-      })
+      }
     }
 
 }
@@ -169,7 +178,7 @@ const Bio = () => {
             <Text style={styles.bio}>{"Leadership Position: " + element['leadership position']}</Text>
             <Text style={styles.bio}>{"Street Address: " + element['street address']}</Text>
             <Text style={styles.bio}>{"Neighborhood: " + element['neighborhood']}</Text>
-            <Text style={styles.bio}>{"City: " + element['city']}</Text>
+            <Text style={styles.bio}>{"City: " + element.city}</Text>
             <Text style={styles.bio}>{"Post Code: " + element['post code']}</Text>
             <Text style={styles.bio}>{"Proposer: " + element['proposer']}</Text>
             <Text style={styles.bio}>{"Organization 1: " + element['org1']}</Text>
