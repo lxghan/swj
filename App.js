@@ -56,40 +56,39 @@ const SWJ = ({navigation}) => {
 }
 
 const input1 = (fname, lname, pname, lp) => {
-  if (fname != undefined){
+  if (fname != undefined && searchInp == ""){
     searchInp += "?first_name=" + fname;
-  }
-}
-/*
     input2(fname, lname, pname, lp);
   }
-  else if (lname != undefined){
+  else if (lname != undefined && searchInp == ""){
     searchInp += "?Surname=" + lname;
     input2(fname, lname, pname, lp);
   }
-  else if (pname != undefined){
+  /*
+  else if (pname != undefined && searchInp == ""){
     searchInp += "?pen name=" + pname;
     input2(fname, lname, pname, lp);
   }
-  else if (lp != undefined){
+  else if (lp != undefined && searchInp == ""){
     searchInp += "?leadership position=" + lp;
     input2(fname, lname, pname, lp);
-  }
-
+  }*/
 }
 
 const input2 = (fname, lname, pname, lp) => {
-  if (lname != undefined){
+  if (lname != undefined && searchInp != ""){
     searchInp += "&Surname=" + lname;
   }
-  if (pname != undefined){
+  /*
+  if (pname != undefined && searchInp != ""){
     searchInp += "&pen name=" + pname;
   }
-  if (lp != undefined){
+  if (lp != undefined && searchInp != ""){
     searchInp += "&leadership position="  + lp;
   }
+  */
 }
-*/
+
 const SearchRes = ({navigation}) => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
