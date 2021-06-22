@@ -4,6 +4,11 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandle
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import Header from './component/header';
+import Footer from './component/footer';
+<Route exact path="/" component={SWJ} />
 
 const Stack = createStackNavigator();
 let searchInp = "";
@@ -19,7 +24,9 @@ const SWJ = ({navigation}) => {
   searchInp = "";
 
   return (
+
     <View style={styles.container}>
+      <Header/>
       <Text style={styles.header}>Society of Women Journalists</Text>
       <Text>{"\n\n"}</Text>
 
@@ -51,6 +58,7 @@ const SWJ = ({navigation}) => {
       }}/>
 
       <StatusBar style="auto" />
+      <Footer/>
     </View>
   )
 }
