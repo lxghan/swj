@@ -4,11 +4,9 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandle
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './component/header';
 import Footer from './component/footer';
-<Route exact path="/" component={SWJ} />
 
 const Stack = createStackNavigator();
 let searchInp = "";
@@ -179,26 +177,134 @@ const Bio = () => {
         return(
           <View>
             <Text style={styles.header}>{element['prefix/title'] + " " + element.first_name + " " + element.Surname}</Text>
-            <Text style={styles.bio}>{"Pen name: " + element['pen name']}</Text>
-            <Text style={styles.bio}>{"Date of Birth: " + element.DOB}</Text>
-            <Text style={styles.bio}>{"Date of Death: " + element.DOD}</Text>
-            <Text style={styles.bio}>{"Leadership Position: " + element['leadership position']}</Text>
-            <Text style={styles.bio}>{"Street Address: " + element['street address']}</Text>
-            <Text style={styles.bio}>{"Neighborhood: " + element['neighborhood']}</Text>
-            <Text style={styles.bio}>{"City: " + element.city}</Text>
-            <Text style={styles.bio}>{"Post Code: " + element['post code']}</Text>
-            <Text style={styles.bio}>{"Proposer: " + element['proposer']}</Text>
-            <Text style={styles.bio}>{"Organization 1: " + element['org1']}</Text>
-            <Text style={styles.bio}>{"Organization 2: " + element['org2']}</Text>
-            <Text style={styles.bio}>{"Organization 3: " + element['org3']}</Text>
-            <Text style={styles.bio}>{"Organization 4: " + element['org4']}</Text>
-            <Text style={styles.bio}>{"Organization 5: " + element['org5']}</Text>
-            <Text style={styles.bio}>{"Periodicals: " + element['periodicals']}</Text>
-            <Text style={styles.bio}>{"Source of Info.: " + element['source of info']}</Text>
-            <Text style={styles.bio}>{"Other: " + element['other']}</Text>
-            <Text style={styles.bio}>{"Joined: " + element['Joined']}</Text>
           </View>
         )
+        if (element['pen name'] != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Pen name: " + element['pen name']}</Text>
+            </View>
+          )
+        }
+        if (element.DOB != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Date of Birth: " + element.DOB}</Text>
+            </View>
+          )
+        }
+        if (element.DOD != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Date of Death: " + element.DOD}</Text>
+            </View>
+          )
+        }
+        if (element['leadership position'] != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Leadership Position: " + element['leadership position']}</Text>
+            </View>
+          )
+        }
+        if (element['street address'] != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Street Address: " + element['street address']}</Text>
+            </View>
+          )
+        }
+        if (element.neighborhood != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Neighborhood: " + element.neighborhood}</Text>
+            </View>
+          )
+        }
+        if (element.city != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Leadership Position: " + element.city}</Text>
+            </View>
+          )
+        }
+        if (element['post code'] != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Post Code: " + element['post code']}</Text>
+            </View>
+          )
+        }
+        if (element.proposer != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Proposer: " + element.proposer}</Text>
+            </View>
+          )
+        }
+        if (element.org1 != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Organization 1: " + element.org1}</Text>
+            </View>
+          )
+        }
+        if (element.org2 != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Organization 2: " + element.org2}</Text>
+            </View>
+          )
+        }
+        if (element.org3 != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Organization 3: " + element.org3}</Text>
+            </View>
+          )
+        }
+        if (element.org4 != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Organization 4: " + element.org4}</Text>
+            </View>
+          )
+        }
+        if (element.org5 != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Organization 5: " + element.org5}</Text>
+            </View>
+          )
+        }
+        if (element.periodicals != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Periodicals : " + element.periodicals}</Text>
+            </View>
+          )
+        }
+        if (element['source of info'] != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Source of Information: " + element['source of info']}</Text>
+            </View>
+          )
+        }
+        if (element.other != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Other: " + element.other}</Text>
+            </View>
+          )
+        }
+        if (element.Joined != null) {
+          return (
+            <View>
+              <Text style={styles.bio}>{"Joined: " + element.Joined}</Text>
+            </View>
+          )
+        }
       })
     }
 
