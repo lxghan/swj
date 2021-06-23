@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class Header extends Component {
   render() {
@@ -9,7 +8,7 @@ class Header extends Component {
               <div class="container px-4 px-lg-5">
 
                   <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                      <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
+                      <div class="col-lg-6"><img class="img-fluid" src="/assets/assets/img/demo-image-01.jpg" alt="..." /></div>
                       <div class="col-lg-6">
                           <div class="bg-black text-center h-100 project">
                               <div class="d-flex h-100">
