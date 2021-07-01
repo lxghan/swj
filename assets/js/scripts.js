@@ -5,7 +5,8 @@
 */
 //
 // Scripts
-// 
+//
+const bootstrap = require('bootstrap');
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -23,7 +24,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     };
 
-    // Shrink the navbar 
+    // Shrink the navbar
     navbarShrink();
 
     // Shrink the navbar when page is scrolled
