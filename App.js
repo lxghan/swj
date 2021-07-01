@@ -4,9 +4,8 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandle
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
-
-import Header from './component/header';
-import Footer from './component/footer';
+import './assets/css/styles.css';
+import './assets/js/scripts.js';
 
 const Stack = createStackNavigator();
 let searchInp = "";
@@ -14,6 +13,112 @@ let searchInp2 = "";
 let url = "https://appmockapi.herokuapp.com/author/search";
 
 const SWJ = ({navigation}) => {
+
+return(
+  <View>
+
+    <div id="page-top" />
+          <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+              <div class="container px-4 px-lg-5">
+                  <a class="navbar-brand" href="#page-top">SWJ</a>
+                  <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                      Menu
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarResponsive">
+                      <ul class="navbar-nav ms-auto">
+                          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#contributors">Contributors</a></li>
+                          <li class="nav-item"><a class="nav-link" href="#references">References</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+
+          <header class="masthead">
+              <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                  <div class="d-flex justify-content-center">
+                      <div class="text-center">
+                          <h1 class="mx-auto my-0 text-uppercase">Society of Women Journalists</h1>
+                          <h2 class="text-white-50 mx-auto mt-2 mb-5">Brief introduction about SWJ website</h2>
+                          <a class="btn btn-primary" href="#about">Get Started</a>
+                      </div>
+                  </div>
+              </div>
+          </header>
+
+          <section class="about-section text-center" id="about">
+              <div class="container px-4 px-lg-5">
+                  <div class="row gx-4 gx-lg-5 justify-content-center">
+                      <div class="col-lg-8">
+                          <h2 class="text-white mb-4">About Us</h2>
+                          <p class="text-white-50">
+                              About Us section
+                          </p>
+                      </div>
+                  </div>
+                  <img class="img-fluid" src="assets/css/img/bg-signup.jpg" alt="..." />
+              </div>
+          </section>
+
+          <section class="projects-section bg-light" id="contributors">
+              <div class="container px-4 px-lg-5">
+
+              <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                <div class="col-lg-6"><img class="img-fluid" src="assets/css/img/demo-image-01.jpg" alt="..." /></div>
+                <div class="col-lg-6">
+                    <div class="bg-black text-center h-100 project">
+                        <div class="d-flex h-100">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
+                                <h4 class="text-white">Contributors</h4>
+                                <p class="mb-0 text-white-50">Contributors section</p>
+                                <hr class="d-none d-lg-block mb-0 ms-0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                  <div class="row gx-0 justify-content-center">
+                      <div class="col-lg-6"><img class="img-fluid" src="assets/css/img/demo-image-02.jpg" alt="..." /></div>
+                      <div class="col-lg-6 order-lg-first">
+                          <div class="bg-black text-center h-100 project">
+                              <div class="d-flex h-100">
+                                  <div class="project-text w-100 my-auto text-center text-lg-right">
+                                      <Text
+                                        style={{color: 'white', fontSize: 24}}
+                                        onPress={() => {
+                                        navigation.navigate('Search');
+                                      }}>Search</Text>
+                                      <p class="mb-0 text-white-50">Search for different journalists by their names, pen names, and leadership positions</p>
+                                      <hr class="d-none d-lg-block mb-0 me-0" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <section class="references-section" id="references">
+              <div class="container px-4 px-lg-5">
+                  <div class="row gx-4 gx-lg-5">
+                      <div class="col-md-10 col-lg-8 mx-auto text-center">
+                          <h2 class="text-white mb-5">References</h2>
+                          <p class="text-white mb-5">
+                          References section
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Society of Women Journalists 2021</div></footer>
+  </View>
+)
+
+}
+
+const Search = ({navigation}) => {
   const [fname, onChangeFname] = React.useState();
   const [lname, onChangeLname] = React.useState();
   const [pname, onChangePname] = React.useState();
@@ -22,9 +127,11 @@ const SWJ = ({navigation}) => {
   searchInp = "";
 
   return (
+  <View>
+  <section class="search-section" id="search">
+  <div class="container px-4 px-lg-5">
 
     <View style={styles.container}>
-      <Header/>
       <Text style={styles.header}>Society of Women Journalists</Text>
       <Text>{"\n\n"}</Text>
 
@@ -50,14 +157,17 @@ const SWJ = ({navigation}) => {
 
       <Text>{"\n\n"}</Text>
       <Button title="Search"
+        color= 'mediumturquoise'
         onPress={() => {
         input1(fname, lname, pname, lp);
         navigation.navigate('Search Results');
       }}/>
 
       <StatusBar style="auto" />
-      <Footer/>
     </View>
+  </div>
+  </section>
+  </View>
   )
 }
 
@@ -126,12 +236,14 @@ const SearchRes = ({navigation}) => {
         return items.map(element => {
             return (
               <View>
+              <div class="container px-4 px-lg-5">
                 <Text onPress={() => {
                   searchInp2 = "?first_name=" + element.first_name + "&Surname=" + element.Surname;
                   navigation.navigate('Biography')}}
                   style={styles.header}>
                   {element.first_name + " " + element.Surname}
                 </Text>
+                </div>
               </View>
             )
         })
@@ -139,7 +251,9 @@ const SearchRes = ({navigation}) => {
       else {
         return (
           <View>
+          <div class="container px-4 px-lg-5">
             <Text style={styles.header}>No result matched</Text>
+          </div>
           </View>
         )
       }
@@ -314,7 +428,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="SWJ" component={SWJ}/>
+        <Stack.Screen name="Society of Women Journalists" component={SWJ}/>
+        <Stack.Screen name="Search" component={Search}/>
         <Stack.Screen name="Search Results" component={SearchRes}/>
         <Stack.Screen name="Biography" component={Bio}/>
       </Stack.Navigator>
