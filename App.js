@@ -11,6 +11,7 @@ let searchInp = "";
 let searchInp2 = "";
 let url = "https://appmockapi.herokuapp.com/author/search";
 
+
 const Search = ({navigation}) => {
   const [fname, onChangeFname] = React.useState();
   const [lname, onChangeLname] = React.useState();
@@ -22,7 +23,6 @@ const Search = ({navigation}) => {
   return (
   <View>
   <div class="container px-4 px-lg-5">
-
     <View style={styles.container}>
       <Text style={styles.header}>Society of Women Journalists</Text>
       <Text>{"\n\n"}</Text>
