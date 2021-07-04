@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   bio: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });
 
