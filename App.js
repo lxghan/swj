@@ -20,32 +20,32 @@ const Search = ({navigation}) => {
 
   return (
   <View>
-  <div class="container px-4 px-lg-5">
-    <View style={styles.container}>
-      <Text style={styles.header}>Society of Women Journalists</Text>
-      <Text>{"\n\n"}</Text>
+    <header class="masthead">
+          <div class="container px-4 px-lg-5">
+              <View style={styles.container}>
+                  <Text style={styles.header}>Society of Women Journalists</Text>
+                  <Text>{"\n\n"}</Text>
 
-        <TextInput style={styles.input}
-        onChangeText={onChangeFname}
-        value={name}
-        placeholder="Name..."/>
+                  <TextInput style={styles.input}
+                    onChangeText={onChangeFname}
+                    value={name}
+                    placeholder="Name..."/>
 
-        <TextInput style={styles.input}
-        onChangeText={onChangeLp}
-        value={lp}
-        placeholder="Leadership position..."/>
+                  <Text>{"\n\n"}</Text>
+                  <Button title="Search"
+                    color= 'mediumturquoise'
+                    onPress={() => {
+                    input1(name, lp);
+                    navigation.navigate('Search Results');
+                  }}/>
 
-      <Text>{"\n\n"}</Text>
-      <Button title="Search"
-        color= 'mediumturquoise'
-        onPress={() => {
-        input1(name, lp);
-        navigation.navigate('Search Results');
-      }}/>
-
-      <StatusBar style="auto" />
-    </View>
-  </div>
+                  <Text>{"\n\n"}</Text>
+                  <Text style={styles.searchInst}>Search for any journalist in mind by </Text>
+                  <Text style={styles.searchInst}> inputting a first name, last name, or pen name</Text>
+                  <StatusBar style="auto" />
+              </View>
+          </div>
+    </header>
   </View>
   )
 }
@@ -101,7 +101,7 @@ const SearchRes = ({navigation}) => {
               <View>
                 <Text onPress={() => {
                   navigation.navigate('Biography')}}
-                  style={styles.header}>
+                  style={styles.searchResult}>
                   {element.['first name'] + " " + element.['Surname']}
                 </Text>
               </View>
@@ -109,24 +109,24 @@ const SearchRes = ({navigation}) => {
           }
           else if (element['first name'] != null){
             return (
-              <View>
+                <View>
                 <Text onPress={() => {
                   navigation.navigate('Biography')}}
-                  style={styles.header}>
+                  style={styles.searchResult}>
                   {element.['first name']}
                 </Text>
-              </View>
+                </View>
             )
           }
           else if (element['Surname'] != null){
             return (
-              <View>
+                <View>
                 <Text onPress={() => {
                   navigation.navigate('Biography')}}
-                  style={styles.header}>
+                  style={styles.searchResult}>
                   {element.['Surname']}
                 </Text>
-              </View>
+                </View>
             )
           }
         })
@@ -134,7 +134,7 @@ const SearchRes = ({navigation}) => {
       else {
         return (
           <View>
-            <Text style={styles.header}>No result matched</Text>
+            <Text style={styles.searchResult}>No result matched</Text>
           </View>
         )
       }
@@ -319,22 +319,37 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
   input: {
-    borderWidth: 1,
-    margin: 12,
+    height: 30,
+    borderWidth: 2,
+    margin:50,
     fontSize: 15,
+    color: 'white',
   },
   header: {
     fontSize: 30,
     fontWeight: "bold",
+    color: "white",
+  },
+  searchInst: {
+    fontSize: 20,
+    color: "white",
+  },
+  searchResContainer: {
+    flex: 1,
+    backgroundColor: 'grey',
+  },
+  searchResult: {
+    fontSize: 25,
   },
   bio: {
-    fontSize: 18,
+    fontSize: 20,
+  },
+  web: {
+     flex: 1
   },
 });
 
