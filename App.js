@@ -13,9 +13,7 @@ let url = "https://appmockapi.herokuapp.com/author/search";
 
 
 const Search = ({navigation}) => {
-  const [fname, onChangeFname] = React.useState();
-  const [lname, onChangeLname] = React.useState();
-  const [pname, onChangePname] = React.useState();
+  const [name, onChangeFname] = React.useState();
   const [lp, onChangeLp] = React.useState();
 
   searchInp = "";
@@ -29,18 +27,8 @@ const Search = ({navigation}) => {
 
         <TextInput style={styles.input}
         onChangeText={onChangeFname}
-        value={fname}
-        placeholder="First name..."/>
-
-        <TextInput style={styles.input}
-        onChangeText={onChangeLname}
-        value={lname}
-        placeholder="Last name..."/>
-
-        <TextInput style={styles.input}
-        onChangeText={onChangePname}
-        value={pname}
-        placeholder="Pen name..."/>
+        value={name}
+        placeholder="Name..."/>
 
         <TextInput style={styles.input}
         onChangeText={onChangeLp}
@@ -51,7 +39,7 @@ const Search = ({navigation}) => {
       <Button title="Search"
         color= 'mediumturquoise'
         onPress={() => {
-        input1(fname, lname, pname, lp);
+        input1(name, lp);
         navigation.navigate('Search Results');
       }}/>
 
@@ -62,38 +50,21 @@ const Search = ({navigation}) => {
   )
 }
 
-const input1 = (fname, lname, pname, lp) => {
-  if (fname != undefined && searchInp == ""){
-    searchInp += "?first_name=" + fname;
-    input2(fname, lname, pname, lp);
-  }
-  else if (lname != undefined && searchInp == ""){
-    searchInp += "?Surname=" + lname;
-    input2(fname, lname, pname, lp);
-  }
-  /*
-  else if (pname != undefined && searchInp == ""){
-    searchInp += "?pen name=" + pname;
-    input2(fname, lname, pname, lp);
+const input1 = (name, lp) => {
+  if (name != undefined && searchInp == ""){
+    searchInp += "?name=" + name;
+    input2(name, lp);
   }
   else if (lp != undefined && searchInp == ""){
     searchInp += "?leadership position=" + lp;
-    input2(fname, lname, pname, lp);
-  }*/
+    input2(name, lp);
+  }
 }
 
-const input2 = (fname, lname, pname, lp) => {
-  if (lname != undefined && searchInp != ""){
-    searchInp += "&Surname=" + lname;
-  }
-  /*
-  if (pname != undefined && searchInp != ""){
-    searchInp += "&pen name=" + pname;
-  }
+const input2 = (name, lp) => {
   if (lp != undefined && searchInp != ""){
-    searchInp += "&leadership position="  + lp;
+    searchInp += "&leadership position=" + lp;
   }
-  */
 }
 
 const SearchRes = ({navigation}) => {
@@ -125,26 +96,45 @@ const SearchRes = ({navigation}) => {
     } else {
       if (Array.isArray(items) && items.length){
         return items.map(element => {
+          if (element['first name'] != null && element['Surname'] != null){
             return (
               <View>
-              <div class="container px-4 px-lg-5">
                 <Text onPress={() => {
-                  searchInp2 = "?first_name=" + element.first_name + "&Surname=" + element.Surname;
                   navigation.navigate('Biography')}}
                   style={styles.header}>
-                  {element.first_name + " " + element.Surname}
+                  {element.['first name'] + " " + element.['Surname']}
                 </Text>
-                </div>
               </View>
             )
+          }
+          else if (element['first name'] != null){
+            return (
+              <View>
+                <Text onPress={() => {
+                  navigation.navigate('Biography')}}
+                  style={styles.header}>
+                  {element.['first name']}
+                </Text>
+              </View>
+            )
+          }
+          else if (element['Surname'] != null){
+            return (
+              <View>
+                <Text onPress={() => {
+                  navigation.navigate('Biography')}}
+                  style={styles.header}>
+                  {element.['Surname']}
+                </Text>
+              </View>
+            )
+          }
         })
       }
       else {
         return (
           <View>
-          <div class="container px-4 px-lg-5">
             <Text style={styles.header}>No result matched</Text>
-          </div>
           </View>
         )
       }
