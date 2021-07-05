@@ -14,7 +14,7 @@ let url = "https://appmockapi.herokuapp.com/author/search";
 
 const Search = ({navigation}) => {
   const [name, onChangeFname] = React.useState();
-  const [lp, onChangeLp] = React.useState();
+  //const [lp, onChangeLp] = React.useState();
 
   searchInp = "";
 
@@ -35,7 +35,7 @@ const Search = ({navigation}) => {
                   <Button title="Search"
                     color= 'mediumturquoise'
                     onPress={() => {
-                    input1(name, lp);
+                    input1(name);
                     navigation.navigate('Search Results');
                   }}/>
 
@@ -50,23 +50,25 @@ const Search = ({navigation}) => {
   )
 }
 
-const input1 = (name, lp) => {
+const input1 = (name) => {
   if (name != undefined && searchInp == ""){
     searchInp += "?name=" + name;
-    input2(name, lp);
+    //input2(name);
   }
+  /*
   else if (lp != undefined && searchInp == ""){
     searchInp += "?leadership position=" + lp;
     input2(name, lp);
   }
+  */
 }
-
+/*
 const input2 = (name, lp) => {
   if (lp != undefined && searchInp != ""){
     searchInp += "&leadership position=" + lp;
   }
 }
-
+*/
 const SearchRes = ({navigation}) => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
