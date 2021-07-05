@@ -70,7 +70,7 @@ const Main = ({navigation}) => {
                           </p>
                       </div>
                   </div>
-                  <img class="img-fluid" src="../assets/css/img/bg-masthead.jpg" alt="..." />
+                  <img class="img-fluid" src="https://github.com/lxghan/swj/tree/master/assets/css/img/bg-masthead.jpg" alt="..." />
               </div>
           </section>
 
@@ -78,7 +78,7 @@ const Main = ({navigation}) => {
               <div class="container px-4 px-lg-5">
 
               <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="../assets/css/img/demo-image-01.jpg" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="https://github.com/lxghan/swj/tree/master/assets/css/img/demo-image-01.jpg" alt="..." /></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -93,7 +93,7 @@ const Main = ({navigation}) => {
             </div>
 
                   <div class="row gx-0 justify-content-center">
-                      <div class="col-lg-6"><img class="img-fluid" src="../assets/css/img/demo-image-02.jpg" alt="..." /></div>
+                      <div class="col-lg-6"><img class="img-fluid" src="https://github.com/lxghan/swj/tree/master/assets/css/img/demo-image-02.jpg" alt="..." /></div>
                       <div class="col-lg-6 order-lg-first">
                           <div class="bg-black text-center h-100 project">
                               <div class="d-flex h-100">
