@@ -463,6 +463,7 @@ const styles = StyleSheet.create({
   searchNav: {
     fontSize: 25,
     color: "white",
+    textDecorationLine: 'underline',
   },
   searchInst: {
     fontSize: 20,
