@@ -178,7 +178,7 @@ const input1 = (name) => {
     searchInp += "?name=" + name;
     //input2(name);
   }
-  /*
+/*
   else if (lp != undefined && searchInp == ""){
     searchInp += "?leadership position=" + lp;
     input2(name, lp);
