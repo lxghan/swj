@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, BackHandler, ImageBackground } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
@@ -8,7 +8,7 @@ import './assets/css/styles.css';
 
 const Stack = createStackNavigator();
 let searchInp = "";
-let searchInp2 = "";
+let index = 0;
 let url = "https://appmockapi.herokuapp.com/author/search";
 
 const Main = ({navigation}) => {
@@ -145,7 +145,7 @@ const Search = ({navigation}) => {
   <View>
     <header class="masthead">
           <div class="container px-4 px-lg-5">
-              <View style={styles.container}>
+              <View style={styles.searchContainer}>
                   <Text style={styles.header}>Society of Women Journalists</Text>
                   <Text>{"\n\n"}</Text>
 
@@ -196,7 +196,6 @@ const SearchRes = ({navigation}) => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
-  searchInp2 = "";
 
   React.useEffect(() => {
     fetch(url + searchInp, {
@@ -220,38 +219,29 @@ const SearchRes = ({navigation}) => {
       return <div>Loading...</div>;
     } else {
       if (Array.isArray(items) && items.length){
-        return items.map(element => {
-          if (element['first name'] != null && element['Surname'] != null){
+        return items.map((element, i) => {
+          if (element['first_name'] != null){
             return (
               <View>
                 <Text onPress={() => {
+                  index = i;
                   navigation.navigate('Biography')}}
                   style={styles.searchResult}>
-                  {element.['first name'] + " " + element.['Surname']}
+                  {element['first_name'] + " " + element['Surname'] + "\n(Start Year:" + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
                 </Text>
               </View>
             )
           }
-          else if (element['first name'] != null){
+          else {
             return (
-                <View>
+              <View>
                 <Text onPress={() => {
+                  index = i;
                   navigation.navigate('Biography')}}
                   style={styles.searchResult}>
-                  {element.['first name']}
+                  {element['Surname'] + "\n(Start Year:" + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
                 </Text>
-                </View>
-            )
-          }
-          else if (element['Surname'] != null){
-            return (
-                <View>
-                <Text onPress={() => {
-                  navigation.navigate('Biography')}}
-                  style={styles.searchResult}>
-                  {element.['Surname']}
-                </Text>
-                </View>
+              </View>
             )
           }
         })
@@ -271,9 +261,32 @@ const Bio = () => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
+  let pf = "";//prefix
+  let fn = "";//first name
+  let sn = "";//surname
+  let pn = "";//pen name
+  let dob = "";//DOB
+  let dod = "";//DOD
+  let lp = "";//leadership position
+  let sa = "";//street address
+  let nh = "";//neighborhood
+  let ct = "";//city
+  let pc = "";//post code
+  let ps = "";//proposer
+  let o1 = "";//org1
+  let o2 = "";//org2
+  let o3 = "";//org3
+  let o4 = "";//org4
+  let o5 = "";//org5
+  let pd = "";//periodicals
+  let si = "";//source of info
+  let other = "";//other
+  let joined = "";//joined
+  let sy = "";//start year
+  let ey = "";//end year
 
   React.useEffect(() => {
-    fetch(url + searchInp2, {
+    fetch(url + searchInp, {
       method: "GET"})
       .then(res => res.json())
       .then(
@@ -293,139 +306,65 @@ const Bio = () => {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return items.map(element => {
-        return(
-          <View>
-            <Text style={styles.header}>{element['prefix/title'] + " " + element.first_name + " " + element.Surname}</Text>
-          </View>
-        )
-        if (element['pen name'] != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Pen name: " + element['pen name']}</Text>
-            </View>
-          )
-        }
-        if (element.DOB != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Date of Birth: " + element.DOB}</Text>
-            </View>
-          )
-        }
-        if (element.DOD != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Date of Death: " + element.DOD}</Text>
-            </View>
-          )
-        }
-        if (element['leadership position'] != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Leadership Position: " + element['leadership position']}</Text>
-            </View>
-          )
-        }
-        if (element['street address'] != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Street Address: " + element['street address']}</Text>
-            </View>
-          )
-        }
-        if (element.neighborhood != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Neighborhood: " + element.neighborhood}</Text>
-            </View>
-          )
-        }
-        if (element.city != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Leadership Position: " + element.city}</Text>
-            </View>
-          )
-        }
-        if (element['post code'] != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Post Code: " + element['post code']}</Text>
-            </View>
-          )
-        }
-        if (element.proposer != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Proposer: " + element.proposer}</Text>
-            </View>
-          )
-        }
-        if (element.org1 != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Organization 1: " + element.org1}</Text>
-            </View>
-          )
-        }
-        if (element.org2 != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Organization 2: " + element.org2}</Text>
-            </View>
-          )
-        }
-        if (element.org3 != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Organization 3: " + element.org3}</Text>
-            </View>
-          )
-        }
-        if (element.org4 != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Organization 4: " + element.org4}</Text>
-            </View>
-          )
-        }
-        if (element.org5 != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Organization 5: " + element.org5}</Text>
-            </View>
-          )
-        }
-        if (element.periodicals != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Periodicals : " + element.periodicals}</Text>
-            </View>
-          )
-        }
-        if (element['source of info'] != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Source of Information: " + element['source of info']}</Text>
-            </View>
-          )
-        }
-        if (element.other != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Other: " + element.other}</Text>
-            </View>
-          )
-        }
-        if (element.Joined != null) {
-          return (
-            <View>
-              <Text style={styles.bio}>{"Joined: " + element.Joined}</Text>
-            </View>
-          )
-        }
-      })
+      return items.map((element, i) => {
+        if (i == index){
+          if (element['prefix/title'] != null) pf = element['prefix/title'];
+          if (element['first_name'] != null) fn = element['first_name'];
+          if (element['Surname'] != null) sn = element['Surname'];
+          element['pen_name'] != null ? pn = "Pen name: " + element['pen_name'] : pn = "";
+          element.DOB != null ? dob = "Date of Birth: " + element['DOB'] : dob = "";
+          element.DOD != null ? dod = "Date of Death: " + element['DOD'] : dod = "";
+          element['leadership_position'] != null ? lp = "Leadership Position: " + element['leadership_position'] : lp = "";
+          element['street_address'] != null ? sa = "Street Address: " + element['street_address'] : sa = "";
+          element['neighborhood'] != null ? nh = "Neighborhood: " + element['neighborhood'] : nh = "";
+          element['city'] != null ? ct = "City: " + element['city'] : ct = "";
+          element['post_code'] != null ? pc = "Post Code: " + element['post_code'] : pc = "";
+          element['proposer'] != null ? ps = "Proposer: " + element['proposer'] : ps = "";
+          element['org1'] != null ? o1 = "Organization 1: " + element['org1'] : o1 = "";
+          element['org2'] != null ? o2 = "Organization 2: " + element['org2'] : o2 = "";
+          element['org3'] != null ? o3 = "Organization 3: " + element['org3'] : o3 = "";
+          element['org4'] != null ? o4 = "Organization 4: " + element['org4'] : o4 = "";
+          element['org5'] != null ? o5 = "Organization 5: " + element['org5'] : o5 = "";
+          element['periodicals'] != null ? pd = "Periodicals: " + element['periodicals'] : pd = "";
+          element['source_of_info'] != null ? si = "Source of Information: " + element['source_of_info'] : si = "";
+          element['other'] != null ? other = "Other: " + element['other'] : other = "";
+          element['Joined'] != null ? joined = "Joined: " + element['joined'] : joined = "";
+          element['Startyear'] != null ? sy = "Start Year: " + element['Startyear'] : sy = "";
+          element['Endyear'] != null ? ey = "End Year: " + element['Endyear'] : ey = "";
+            return(
+              <View>
+                <header class="masthead">
+                  <div class="container px-4 px-lg-5">
+                    <View style={styles.bioContainer}>
+                      <Text style={styles.bio}>{pf + " " + fn + " " + sn}</Text>
+                      <Text style={styles.bio}>{pn}</Text>
+                      <Text style={styles.bio}>{dob}</Text>
+                      <Text style={styles.bio}>{dod}</Text>
+                      <Text style={styles.bio}>{lp}</Text>
+                      <Text style={styles.bio}>{sa}</Text>
+                      <Text style={styles.bio}>{nh}</Text>
+                      <Text style={styles.bio}>{ct}</Text>
+                      <Text style={styles.bio}>{pc}</Text>
+                      <Text style={styles.bio}>{ps}</Text>
+                      <Text style={styles.bio}>{o1}</Text>
+                      <Text style={styles.bio}>{o2}</Text>
+                      <Text style={styles.bio}>{o3}</Text>
+                      <Text style={styles.bio}>{o4}</Text>
+                      <Text style={styles.bio}>{o5}</Text>
+                      <Text style={styles.bio}>{pd}</Text>
+                      <Text style={styles.bio}>{si}</Text>
+                      <Text style={styles.bio}>{other}</Text>
+                      <Text style={styles.bio}>{joined}</Text>
+                      <Text style={styles.bio}>{sy}</Text>
+                      <Text style={styles.bio}>{ey}</Text>
+                    </View>
+                  </div>
+                </header>
+              </View>
+            )
+          }
+        })
+
     }
 
 }
@@ -444,7 +383,11 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  image:{
+    flex: 1,
+    justifyContent: "center"
+  },
+  searchContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -475,6 +418,10 @@ const styles = StyleSheet.create({
   },
   searchResult: {
     fontSize: 25,
+  },
+  bioContainer: {
+    backgroundColor: 'white',
+    height: 750,
   },
   bio: {
     fontSize: 20,
