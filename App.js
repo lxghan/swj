@@ -5,13 +5,17 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderBackButton } from '@react-navigation/stack';
 import './assets/css/styles.css';
+import './assets/js/scripts.js';
 
 const Stack = createStackNavigator();
 let searchInp = "";
 let index = 0;
-let url = "https://appmockapi.herokuapp.com/author/search";
+let url = "https://appmockapi.herokuapp.com/author/search?name=";
 
 const Main = ({navigation}) => {
+  const [name, onChangeName] = React.useState();
+
+  searchInp = "";
   return (
   <View>
   <head>
@@ -52,9 +56,29 @@ const Main = ({navigation}) => {
               <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                   <div class="d-flex justify-content-center">
                       <div class="text-center">
+                          <Text>{"\n\n"}</Text>
                           <h1 class="mx-auto my-0 text-uppercase">Society of Women Journalists</h1>
                           <h2 class="text-white-50 mx-auto mt-2 mb-5">Brief introduction about SWJ website</h2>
-                          <a class="btn btn-primary" href="#about">Get Started</a>
+                            <div class="container px-4 px-lg-5">
+                              <View style={styles.searchContainer}>
+                              <Text style={styles.searchInst}>Search for any journalist by</Text>
+                              <Text style={styles.searchInst}>inputting a first name, last name, or pen name</Text>
+
+                                <TextInput style={styles.input}
+                                  onChangeText={onChangeName}
+                                  value={name}
+                                  placeholder="Name..."/>
+
+                                <Button title="Search"
+                                  color= 'mediumturquoise'
+                                  onPress={() => {
+                                    if (searchInp == "" && name != undefined)
+                                      searchInp = name;
+                                    navigation.navigate('Search Results');
+                                }}/>
+                                <StatusBar style="auto" />
+                            </View>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -78,39 +102,32 @@ const Main = ({navigation}) => {
               <div class="container px-4 px-lg-5">
 
               <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="https://php-bootstrap.com/templates/grayscale/img/demo-image-01.jpg" alt="..." /></div>
+
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <h4 class="text-white">Contributors</h4>
-                                <p class="mb-0 text-white-50">Contributors section</p>
+                                <p class="text-white">Project Director</p>
+                                <p class="mb-0 text-white-50">Laura Vorachek is Associate Professor of English at the University of Dayton. Her research interests include Victorian periodicals, Victorian literature, Jane Austen, and detective fiction.
+                                Her publications on nineteenth-century British women journalists include:</p>
+                                <p class="mb-0 text-white-50">“‘How little I cared for fame’: T. Sparrow and Women’s Investigative Journalism at the Fin de Siècle.” Victorian Periodicals Review, vol. 49, no. 2, 2016, pp. 333-61.</p>
+                                <p class="mb-0 text-white-50">“Playing Italian: Cross-Cultural Dress and Investigative Journalism at the Fin de Siècle.”  Victorian Periodicals Review, vol. 45, no. 4, 2012, pp. 406-35.</p>
+                                <p class="text-white">Data Entry and Research</p>
+                                <p class="mb-0 text-white-50">Mallory Boring is an English major at the University of Dayton. Her research interests include women writers and representations of women in fiction.</p>
+                                <p class="mb-0 text-white-50">Lexi Gallion received her MA in English from the University of Dayton in 2021. Her Master's thesis analyzes Gertrude Blood's (Lady Colin Campbell) journalism through the lens of the flaneuse.</p>
+                                <p class="text-white">Web Development</p>
+                                <p class="mb-0 text-white-50">Han Le is a Computer Science major at the University of Dayton. Her research interests include software development in Web applications and their security architecture.</p>
+                                <p class="mb-0 text-white-50">Badri Narayanan Krishnamoorthy Venkataramani is a Master’s student at the University of Dayton. His research interests include Cloud Computing and Software Engineering.</p>
+                                <p class="mb-0 text-white-50">Phu Phung is Associate Professor and Director of the Intelligent Systems Security Lab in the Computer Science Department at the University of Dayton. His research leverages programming language and compiler techniques to enforce security policies to defend against cyber attacks in the areas of JavaScript/Web applications, mobile systems, vehicle systems, and Internet of Things frameworks.</p>
                                 <hr class="d-none d-lg-block mb-0 ms-0" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-                  <div class="row gx-0 justify-content-center">
-                      <div class="col-lg-6"><img class="img-fluid" src="https://php-bootstrap.com/templates/grayscale/img/demo-image-02.jpg" alt="..." /></div>
-                      <div class="col-lg-6 order-lg-first">
-                          <div class="bg-black text-center h-100 project">
-                              <div class="d-flex h-100">
-                                  <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <Text style={styles.searchNav}
-                                      onPress ={() => {
-                                        navigation.navigate('Search')
-                                      }}>Search</Text>
-                                      <p class="mb-0 text-white-50">Search for different journalists by their names, pen names, and leadership positions</p>
-                                      <hr class="d-none d-lg-block mb-0 me-0" />
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
+          </div>
+        </section>
 
           <section class="references-section" id="references">
               <div class="container px-4 px-lg-5">
@@ -132,66 +149,10 @@ const Main = ({navigation}) => {
           <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Society of Women Journalists 2021</div></footer>
       </div>
   </View>
+
   )
 }
 
-const Search = ({navigation}) => {
-  const [name, onChangeFname] = React.useState();
-  //const [lp, onChangeLp] = React.useState();
-
-  searchInp = "";
-
-  return (
-  <View>
-    <header class="masthead">
-          <div class="container px-4 px-lg-5">
-              <View style={styles.searchContainer}>
-                  <Text style={styles.header}>Society of Women Journalists</Text>
-                  <Text>{"\n\n"}</Text>
-
-                  <TextInput style={styles.input}
-                    onChangeText={onChangeFname}
-                    value={name}
-                    placeholder="Name..."/>
-
-                  <Text>{"\n\n"}</Text>
-                  <Button title="Search"
-                    color= 'mediumturquoise'
-                    onPress={() => {
-                    input1(name);
-                    navigation.navigate('Search Results');
-                  }}/>
-
-                  <Text>{"\n\n"}</Text>
-                  <Text style={styles.searchInst}>Search for any journalist in mind by </Text>
-                  <Text style={styles.searchInst}> inputting a first name, last name, or pen name</Text>
-                  <StatusBar style="auto" />
-              </View>
-          </div>
-    </header>
-  </View>
-  )
-}
-
-const input1 = (name) => {
-  if (name != undefined && searchInp == ""){
-    searchInp += "?name=" + name;
-    //input2(name);
-  }
-/*
-  else if (lp != undefined && searchInp == ""){
-    searchInp += "?leadership position=" + lp;
-    input2(name, lp);
-  }
-  */
-}
-/*
-const input2 = (name, lp) => {
-  if (lp != undefined && searchInp != ""){
-    searchInp += "&leadership position=" + lp;
-  }
-}
-*/
 const SearchRes = ({navigation}) => {
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -227,19 +188,19 @@ const SearchRes = ({navigation}) => {
                   index = i;
                   navigation.navigate('Biography')}}
                   style={styles.searchResult}>
-                  {element['first_name'] + " " + element['Surname'] + "\n(Start Year:" + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
+                  {element['first_name'] + " " + element['Surname'] + "\n(Start Year: " + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
                 </Text>
               </View>
             )
           }
-          else {
+          else if (element['first_name'] == null){
             return (
               <View>
                 <Text onPress={() => {
                   index = i;
                   navigation.navigate('Biography')}}
                   style={styles.searchResult}>
-                  {element['Surname'] + "\n(Start Year:" + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
+                  {element['Surname'] + "\n(Start Year: " + element['Startyear'] + " - End Year: " + element['Endyear'] + ")"}
                 </Text>
               </View>
             )
@@ -374,7 +335,6 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Main" component={Main}/>
-        <Stack.Screen name="Search" component={Search}/>
         <Stack.Screen name="Search Results" component={SearchRes}/>
         <Stack.Screen name="Biography" component={Bio}/>
       </Stack.Navigator>
@@ -386,6 +346,12 @@ const styles = StyleSheet.create({
   image:{
     flex: 1,
     justifyContent: "center"
+  },
+  buttonContainer:{
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+    flexDirection: 'row',
+    marginBottom: 20,
   },
   searchContainer: {
     alignItems: 'center',
