@@ -368,11 +368,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
+    backgroundColor: "white",
     height: 30,
     borderWidth: 2,
     margin:50,
     fontSize: 15,
-    color: 'white',
   },
   header: {
     fontSize: 30,
