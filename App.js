@@ -134,9 +134,19 @@ const Main = ({navigation}) => {
                   <div class="row gx-4 gx-lg-5">
                       <div class="col-md-10 col-lg-8 mx-auto text-center">
                           <h2 class="text-white mb-5">References</h2>
-                          <p class="text-white mb-5">
-                          References section
-                          </p>
+                          <p class="text-white">In addition to Society of Women Journalists Annual Reports, information about SWJ members was drawn from the following sources:</p>
+                          <p class="text-white">Ancestry (online)</p>
+                          <p class="text-white">At the Circulating Library (online)</p>
+                          <p class="text-white">British Periodicals (online)</p>
+                          <p class="text-white">C19: The Nineteenth Century Index (online)</p>
+                          <p class="text-white">Google Books (online)</p>
+                          <p class="text-white">The Journalist (1886-1909)</p>
+                          <p class="text-white">Myheritage (online)</p>
+                          <p class="text-white">Oxford Dictionary of National Biography (online)</p>
+                          <p class="text-white">Prabook (online)</p>
+                          <p class="text-white">Wikipedia (online)</p>
+                          <p class="text-white">Who Was Who</p>
+                          <p class="text-white">The Woman Journalist (1910-1920)</p>
                       </div>
                   </div>
                 </div>
